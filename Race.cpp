@@ -3,40 +3,37 @@
 #include <ctime>
 
 Race::Race() {
-    finished = false;
-    winner = -1;
-}
-
-void Race::printTrack() const {
-    system("clear");
-    for (int horseIndex = 0; horseIndex < 5; horseIndex++) {
-        for (int trackPosition = 0; trackPosition < 15; trackPosition++) {
-            if (horses[horseIndex].getPosition() == trackPosition)
-                std::cout << horseIndex;
-            else
-                std::cout << ".";
-        }
-        std::cout << std::endl;
+    for (int i = 0; i < numHorses; i++) {
+        horses[i].init(i, trackLength);
     }
 }
 
-void Race::start() {
+void Race::printTrack() const {
+    for (int i = 0; i < numHorses; i++) {
+        horses[i].printLane();
+    }
+}
+
+void Race::runRace() {
     srand(time(0));
+    bool finished = false;
+    int winner = -1;
 
     while (!finished) {
         printTrack();
         std::cout << "Press enter for another turn:";
         std::cin.get();
 
-        for (int horseIndex = 0; horseIndex < 5; horseIndex++) {
-            horses[horseIndex].move();
-            if (horses[horseIndex].hasFinished()) {
+        for (int i = 0; i < numHorses; i++) {
+            horses[i].advance();
+            if (horses[i].isWinner()) {
                 finished = true;
-                winner = horseIndex;
+                winner = i;
+                break;
             }
         }
     }
 
     printTrack();
-    std::cout << "Horse " << winner << " is the winner! Woo hoo" << std::endl;
+    std::cout << "Horse " << winner << " is the winner!" << std::endl;
 }

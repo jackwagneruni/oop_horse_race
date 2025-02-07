@@ -6,14 +6,14 @@
 
 class Race {
 private:
-    Horse horses[5];
-    bool finished;
-    int winner;
+    static const int numHorses = 5;
+    const int trackLength = 15;
+    Horse horses[numHorses];
 
 public:
     Race();
     void printTrack() const;
-    void start();
+    void runRace();
 };
 
 #endif // RACE_H
