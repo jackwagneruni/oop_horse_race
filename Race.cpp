@@ -9,6 +9,7 @@ Race::Race() {
 }
 
 void Race::printTrack() const {
+    system("clear");
     for (int i = 0; i < numHorses; i++) {
         horses[i].printLane();
     }
@@ -21,6 +22,7 @@ void Race::runRace() {
 
     while (!finished) {
         printTrack();
+
         std::cout << "Press enter for another turn:";
         std::cin.get();
 
